@@ -1,0 +1,51 @@
+html, body, head {
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: rgb(240,240,240);
+}
+body {
+    background-color: rgb(10,10,10);
+}
+#title {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    translate: 0 -50%;
+    font-size: 5vmin;
+    text-align: center;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-weight: bold;
+}
+#countdown {
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    font-size: 5vmin;
+    text-align: center;
+    translate: 0 50%;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    animation-name: glow;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+}
+@keyframes glow {
+    to {
+        text-shadow: 0 0 1vmin rgb(240,240,240);
+    }
+    from {
+        text-shadow: 0 0 0.25vmin rgb(240,240,240);
+    }
+}

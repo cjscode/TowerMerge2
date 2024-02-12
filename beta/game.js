@@ -18,8 +18,14 @@ document.querySelector("#mergemobile").addEventListener("click", (e) => {
     }
     merge()
 })
+document.querySelector("#settings").addEventListener("click",(e)=>{
+    if (!(e.isTrusted)) {
+        return
+    }
+    document.querySelector("#settingsscreen").style.display = "block"
+})
 let playbg = false
-let inspecting = 0
+let inspecting = -1
 document.addEventListener("click", (e) => {
     if (!(e.isTrusted)) {
         return
@@ -34,6 +40,17 @@ document.addEventListener("click", (e) => {
             inspecting = i
         }
     })
+})
+document.querySelector("#statsell").addEventListener("click",(e)=>{
+    if (!(e.isTrusted) || game.towers.length < 2) {
+        return
+    }
+    let c = confirm("Are you sure you want to destroy this tower? This can not be undone.")
+    if (!(c)) {
+        return
+    }
+    game.towers.splice(inspecting,1)
+    inspecting = -1
 })
 let loadnames = ["Loading Scripts...", "Loading Asset 1/25", "Loading Asset 2/25", "Loading Asset 3/25", "Loading Asset 4/25", "Loading Asset 5/25", "Loading Asset 6/25", "Loading Asset 7/25", "Loading Asset 8/25", "Loading Asset 9/25", "Loading Asset 10/25", "Loading Asset 11/25", "Loading Asset 12/25", "Loading Asset 13/25", "Loading Asset 14/25", "Loading Asset 15/25", "Loading Asset 16/25", "Loading Asset 17/25", "Loading Asset 18/25", "Loading Asset 19/25", "Loading Asset 20/25", "Loading Asset 21/25", "Loading Asset 22/25", "Loading Asset 23/25", "Loading Asset 24/25", "Loading Asset 25/25", "Finishing Up..."]
 let currentload = 0
@@ -102,12 +119,27 @@ let resetto = {
     stats: {
         timesrebirthed: 0
     },
-    lastonline: Date.now()
+    lastonline: Date.now(),
+    //0: music, 1: soundfx, 2: mergebutton, 3: graphics
+    settings: ["On","On","On","Default"]
 }
 let game = !(localStorage.getItem("beta-gdata") == null) ? JSON.parse(localStorage.getItem("beta-gdata")) : { ...resetto }
-if (localStorage.getItem("before") == "yes" && localStorage.getItem("beta-gdata") == null) {
-    alert("Your save file can't be found. We are sorry, but your game has been reset.")
+for (let id in resetto) {
+    if (!(game[id])) {
+        game[id] = resetto[id]
+    }
 }
+document.querySelectorAll(".settingsselect").forEach((v,i)=>{
+    v.innerHTML = v.getAttribute("data-options").split(",")[v.getAttribute("data-value")]
+    v.addEventListener("click",(e)=>{
+        if (!(e.isTrusted)) {
+            return
+        }
+        v.setAttribute("data-value",v.getAttribute("data-value") == ""+(v.getAttribute("data-options").split(",").length-1) ? "0" : Number(v.getAttribute("data-value"))+1+"")
+        v.innerHTML = v.getAttribute("data-options").split(",")[Number(v.getAttribute("data-value"))]
+        game.settings[i] = v.getAttribute("data-options").split(",")[Number(v.getAttribute("data-value"))]
+    })
+})
 document.querySelector("#offline").style.display = "none"
 if (game.lastonline + 5000 < Date.now() && game.upgs.offlinetime != 0) {
     let overall = 0
@@ -119,7 +151,6 @@ if (game.lastonline + 5000 < Date.now() && game.upgs.offlinetime != 0) {
     document.querySelector("#offlinemoney").innerHTML = "In that time you made $" + abbv(overall * Math.pow(1.01, game.upgs.money) * 0.5 * Math.pow(5, game.currentmult) * Math.min((Date.now() - game.lastonline) / 1000, game.upgs.offlinetime == 0 ? 0 : (game.upgs.offlinetime * 10 + 20) * 60)) + "."
     document.querySelector("#offline").style.display = "block"
 }
-localStorage.setItem("before", "yes")
 document.querySelector("#towerbuy").addEventListener("click", (e) => {
     if (!(e.isTrusted)) {
         return
@@ -253,7 +284,8 @@ document.querySelector("#rebirthbuy").addEventListener("click", (e) => {
                 rebirths: game.rebirths + 1 + game.upgs.rebirth,
                 upgs: { ...game.upgs },
                 stats: { ...game.stats },
-                lastonline: game.lastonline/1
+                lastonline: game.lastonline/1,
+                settings: game.settings
             }
             bulletdata = []
             game = { ...resetto }
@@ -436,12 +468,12 @@ document.addEventListener("keydown", (e) => {
         merge()
     }
 })
-let p = prompt("Please enter your access code. Please do not share this code.","")
+let p = "239a"//prompt("Please enter your access code. Please do not share this code.","")
 if (!(p == "239a")) {
     alert("Code incorrect, please try again later.")
     location.href = "../"
 } else {
-    alert("Access granted.")
+    //alert("Access granted.")
     if (!(ctx)) {
         alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
     } else {

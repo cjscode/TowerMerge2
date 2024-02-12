@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>Tower Merge</title>
     <link rel="stylesheet" href="style.css">
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="images/center0.png" type="image/png">
 </head>
+
 <body>
     <div id="upgscreen" style="display: none;">
         <p id="upgpoints">0 Points</p>
@@ -63,7 +66,8 @@
     </div>
     <button id="mergemobile">Merge</button>
     <button id="upgrades">Upgrades</button>
-    <canvas id="game">Your browser does not support the HTML5 Canvas element. Please upgrade your browser to continue.</canvas>
+    <canvas id="game">Your browser does not support the HTML5 Canvas element. Please upgrade your browser to
+        continue.</canvas>
     <div id="rebirthed" style="opacity: 0; display: none;">
         <p id="rebirthtext"></p>
     </div>
@@ -74,10 +78,32 @@
     </div>
     <div id="towerstats">
         <span id="statcorner"></span>
-        <p id="statlvl">lvl: 16</p>
-        <p id="statdamage">damage: 625000</p>
-        <p id="statfs">speed: 2.15/s</p>
+        <p id="statlvl"></p>
+        <p id="statdamage"></p>
+        <p id="statfs"></p>
+        <button id="statsell">Destroy</button>
     </div>
+    <button id="settings">Settings</button>
+    <ul id="settingsscreen" style="display: block;">
+        <button id="settingsclose" onclick="document.querySelector('#settingsscreen').style.display = 'none'">X</button>
+        <li class="settingsitem">
+            Music: 
+            <button class="settingsselect" data-options="On,Off" data-value="0"></button>
+        </li>
+        <li class="settingsitem">
+            Sound Effects: 
+            <button class="settingsselect" data-options="On,Off" data-value="0"></button>
+        </li>
+        <li class="settingsitem">
+            Always show Merge Button: 
+            <button class="settingsselect" data-options="True,False" data-value="0"></button>
+        </li>
+        <li class="settingsitem">
+            Graphics Mode: 
+            <button class="settingsselect" data-options="Default,Hide Bullets,No Render" data-value="0"></button>
+        </li>
+    </ul>
     <script src="game.js"></script>
 </body>
+
 </html>

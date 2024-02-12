@@ -122,7 +122,7 @@ let resetto = {
     },
     lastonline: Date.now(),
     //0: music, 1: soundfx, 2: mergebutton, 3: graphics
-    settings: ["On", "On", "On", "Default"]
+    settings: ["On", "On", "False", "Default"]
 }
 let game = !(localStorage.getItem("beta-gdata") == null) ? JSON.parse(localStorage.getItem("beta-gdata")) : { ...resetto }
 for (let id in resetto) {

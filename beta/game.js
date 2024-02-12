@@ -104,8 +104,8 @@ let resetto = {
     },
     lastonline: Date.now()
 }
-let game = localStorage.getItem("beta-gdata") != null ? JSON.parse(localStorage.getItem("gdata")) : { ...resetto }
-if (localStorage.getItem("before") == "yes" && localStorage.getItem("gdata") == null) {
+let game = !(localStorage.getItem("beta-gdata") == null) ? JSON.parse(localStorage.getItem("beta-gdata")) : { ...resetto }
+if (localStorage.getItem("before") == "yes" && localStorage.getItem("beta-gdata") == null) {
     alert("Your save file can't be found. We are sorry, but your game has been reset.")
 }
 document.querySelector("#offline").style.display = "none"
@@ -382,7 +382,6 @@ function render() {
         document.querySelector("#mmname").innerHTML = "+1% Money (" + abbv(Math.pow(1.01, game.upgs.money)) + "x)"
         document.querySelector("#rbpname").innerHTML = "+1 Rebirth Points (+" + abbv(game.upgs.rebirth) + ")"
         document.querySelector("#oltname").innerHTML = "+10m Offline Time (" + (game.upgs.offlinetime == 0 ? 0 : abbv(game.upgs.offlinetime * 10 + 20)) + "m)"
-        game.lastonline = Date.now()
         if (playbg && currentbg == null) {
             currentbg = Math.floor(Math.random() * 3)
             if (!(currentbg == prevbg)) {
@@ -401,6 +400,7 @@ function render() {
         document.querySelector("#statdamage").innerHTML = "damage: "+abbv(Math.pow(3,game.towers[inspecting == -1 ? 0 : inspecting]))
         document.querySelector("#statfs").innerHTML = "speed: "+abbv(Math.pow(1.01,game.upgs.firespeed))+"/s"
     }
+    game.lastonline = Date.now()
     localStorage.setItem("beta-gdata", JSON.stringify(game))
     requestAnimationFrame(render)
 }
@@ -436,10 +436,17 @@ document.addEventListener("keydown", (e) => {
         merge()
     }
 })
-if (!(ctx)) {
-    alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
+let p = prompt("Please enter your access code. Please do not share this code.","")
+if (!(p == "239a")) {
+    alert("Code incorrect, please try again later.")
+    location.href = "../"
 } else {
-    render()
+    alert("Access granted.")
+    if (!(ctx)) {
+        alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
+    } else {
+        render()
+    }
 }
 /*
 // Hard mode when u get to the end

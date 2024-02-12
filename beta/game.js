@@ -429,9 +429,9 @@ function render() {
             }
         }
         if (game.settings[0] == "Off" && playbg && !(currentbg == null)) {
-            loader.loadedAssets["bg" + currentbg].volume = 0
+            loader.loadedAssets["bg" + currentbg].pause()
         } else if (game.settings[0] == "On" && playbg && !(currentbg == null)) {
-            loader.loadedAssets["bg" + currentbg].volume = 1
+            loader.loadedAssets["bg" + currentbg].play()
         }
         document.querySelector("#towerstats").style.display = (inspecting == -1 ? "none" : "block")
         document.querySelector("#towerstats").style.left = (inspecting == -1 ? 0 : getPos(inspecting).x) + "px"

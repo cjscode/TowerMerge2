@@ -7,18 +7,13 @@ document.addEventListener("dblclick", (e) => {
     e.preventDefault()
 }, { passive: false })
 let ismobile = navigator.userAgent.match(/Android/i) || navigator.userAgent.match(/webOS/i) || navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i) || navigator.userAgent.match(/BlackBerry/i) || navigator.userAgent.match(/Windows Phone/i)
-if (ismobile) {
-    document.querySelector("#mergemobile").style.display = "block"
-} else {
-    document.querySelector("#mergemobile").style.display = "none"
-}
 document.querySelector("#mergemobile").addEventListener("click", (e) => {
     if (!(e.isTrusted)) {
         return
     }
     merge()
 })
-document.querySelector("#settings").addEventListener("click",(e)=>{
+document.querySelector("#settings").addEventListener("click", (e) => {
     if (!(e.isTrusted)) {
         return
     }
@@ -41,7 +36,7 @@ document.addEventListener("click", (e) => {
         }
     })
 })
-document.querySelector("#statsell").addEventListener("click",(e)=>{
+document.querySelector("#statsell").addEventListener("click", (e) => {
     if (!(e.isTrusted) || game.towers.length < 2) {
         return
     }
@@ -49,7 +44,7 @@ document.querySelector("#statsell").addEventListener("click",(e)=>{
     if (!(c)) {
         return
     }
-    game.towers.splice(inspecting,1)
+    game.towers.splice(inspecting, 1)
     inspecting = -1
 })
 let loadnames = ["Loading Scripts...", "Loading Asset 1/25", "Loading Asset 2/25", "Loading Asset 3/25", "Loading Asset 4/25", "Loading Asset 5/25", "Loading Asset 6/25", "Loading Asset 7/25", "Loading Asset 8/25", "Loading Asset 9/25", "Loading Asset 10/25", "Loading Asset 11/25", "Loading Asset 12/25", "Loading Asset 13/25", "Loading Asset 14/25", "Loading Asset 15/25", "Loading Asset 16/25", "Loading Asset 17/25", "Loading Asset 18/25", "Loading Asset 19/25", "Loading Asset 20/25", "Loading Asset 21/25", "Loading Asset 22/25", "Loading Asset 23/25", "Loading Asset 24/25", "Loading Asset 25/25", "Finishing Up..."]
@@ -57,6 +52,9 @@ let currentload = 0
 function abbv(num) {
     if (num == 0) {
         return "0"
+    }
+    if (num < 1000) {
+        return num.toFixed(2) / 1
     }
     num = num.toFixed(2)
     let len = 0
@@ -121,7 +119,7 @@ let resetto = {
     },
     lastonline: Date.now(),
     //0: music, 1: soundfx, 2: mergebutton, 3: graphics
-    settings: ["On","On","On","Default"]
+    settings: ["On", "On", "On", "Default"]
 }
 let game = !(localStorage.getItem("beta-gdata") == null) ? JSON.parse(localStorage.getItem("beta-gdata")) : { ...resetto }
 for (let id in resetto) {
@@ -129,13 +127,14 @@ for (let id in resetto) {
         game[id] = resetto[id]
     }
 }
-document.querySelectorAll(".settingsselect").forEach((v,i)=>{
+document.querySelectorAll(".settingsselect").forEach((v, i) => {
+    v.setAttribute("data-value", v.getAttribute("data-options").split(",").indexOf(game.settings[i]) + "")
     v.innerHTML = v.getAttribute("data-options").split(",")[v.getAttribute("data-value")]
-    v.addEventListener("click",(e)=>{
+    v.addEventListener("click", (e) => {
         if (!(e.isTrusted)) {
             return
         }
-        v.setAttribute("data-value",v.getAttribute("data-value") == ""+(v.getAttribute("data-options").split(",").length-1) ? "0" : Number(v.getAttribute("data-value"))+1+"")
+        v.setAttribute("data-value", v.getAttribute("data-value") == "" + (v.getAttribute("data-options").split(",").length - 1) ? "0" : Number(v.getAttribute("data-value")) + 1 + "")
         v.innerHTML = v.getAttribute("data-options").split(",")[Number(v.getAttribute("data-value"))]
         game.settings[i] = v.getAttribute("data-options").split(",")[Number(v.getAttribute("data-value"))]
     })
@@ -144,11 +143,11 @@ document.querySelector("#offline").style.display = "none"
 if (game.lastonline + 5000 < Date.now() && game.upgs.offlinetime != 0) {
     let overall = 0
     game.towers.forEach((v) => {
-        overall += Math.pow(3, v) / Math.pow(1.01, game.upgs.firespeed)
+        overall += Math.pow(3, v) / Math.pow(1.1, game.upgs.firespeed)
     })
-    game.money += overall * Math.pow(1.01, game.upgs.money) * 0.5 * Math.pow(5, game.currentmult) * Math.min((Date.now() - game.lastonline) / 1000, game.upgs.offlinetime == 0 ? 0 : (game.upgs.offlinetime * 10 + 20) * 60)
+    game.money += overall * Math.pow(1.1, game.upgs.money) * 0.5 * Math.pow(5, game.currentmult) * Math.min((Date.now() - game.lastonline) / 1000, game.upgs.offlinetime == 0 ? 0 : (game.upgs.offlinetime * 10 + 20) * 60)
     document.querySelector("#offlinetitle").innerHTML = "You were gone for " + Math.min(Math.ceil((Date.now() - game.lastonline) / 60000), game.upgs.offlinetime == 0 ? 0 : game.upgs.offlinetime * 10 + 20) + "m" + ((Date.now() - game.lastonline) / 1000 > (game.upgs.offlinetime * 10 + 20) * 60 ? "(MAX)" : "") + "!"
-    document.querySelector("#offlinemoney").innerHTML = "In that time you made $" + abbv(overall * Math.pow(1.01, game.upgs.money) * 0.5 * Math.pow(5, game.currentmult) * Math.min((Date.now() - game.lastonline) / 1000, game.upgs.offlinetime == 0 ? 0 : (game.upgs.offlinetime * 10 + 20) * 60)) + "."
+    document.querySelector("#offlinemoney").innerHTML = "In that time you made $" + abbv(overall * Math.pow(1.1, game.upgs.money) * 0.5 * Math.pow(5, game.currentmult) * Math.min((Date.now() - game.lastonline) / 1000, game.upgs.offlinetime == 0 ? 0 : (game.upgs.offlinetime * 10 + 20) * 60)) + "."
     document.querySelector("#offline").style.display = "block"
 }
 document.querySelector("#towerbuy").addEventListener("click", (e) => {
@@ -248,7 +247,7 @@ function fireBullet(idx) {
         y: pos.y,
         id: game.towers[idx]
     })
-    towercool[idx] = Date.now() + (1000 / Math.pow(1.01, game.upgs.firespeed))
+    towercool[idx] = Date.now() + (1000 / Math.pow(1.1, game.upgs.firespeed))
 }
 function getPos(idx) {
     return {
@@ -284,7 +283,7 @@ document.querySelector("#rebirthbuy").addEventListener("click", (e) => {
                 rebirths: game.rebirths + 1 + game.upgs.rebirth,
                 upgs: { ...game.upgs },
                 stats: { ...game.stats },
-                lastonline: game.lastonline/1,
+                lastonline: game.lastonline / 1,
                 settings: game.settings
             }
             bulletdata = []
@@ -366,7 +365,7 @@ function render() {
             const pos = getPos(i)
             drawImgRotation(loader.loadedAssets["tower" + v], pos.x, pos.y, (canvasmin / 6) * (23 / 15), (canvasmin / 6))
             if (!(towercool[i])) {
-                towercool[i] = Date.now() + (1000 / Math.pow(1.01, game.upgs.firespeed))
+                towercool[i] = Date.now() + (1000 / Math.pow(1.1, game.upgs.firespeed))
             }
             if (towercool[i] <= Date.now()) {
                 fireBullet(i)
@@ -374,7 +373,7 @@ function render() {
         })
         bulletdata.forEach((v, i) => {
             if (Math.sqrt(Math.pow(canvas.width / 2 - v.x, 2) + Math.pow(canvas.height / 2 - v.y, 2)) <= canvasmin / 6) {
-                game.money += Math.pow(3, v.id) * Math.pow(5, game.currentmult) * Math.pow(1.01, game.upgs.money)
+                game.money += Math.pow(3, v.id) * Math.pow(5, game.currentmult) * Math.pow(1.1, game.upgs.money)
                 delete bulletdata[i]
             }
             let x = v.x
@@ -384,10 +383,12 @@ function render() {
             y += Math.sin(rotation) * canvasmin / 50
             v.x = x
             v.y = y
-            drawImgRotation(v.id <= 4 ? loader.loadedAssets["bullet04"] : loader.loadedAssets["bullet515"], x, y, (canvasmin / 6) * (23 / 15), (canvasmin / 6))
+            if (game.settings[3] == "Default") {
+                drawImgRotation(v.id <= 4 ? loader.loadedAssets["bullet04"] : loader.loadedAssets["bullet515"], x, y, (canvasmin / 6) * (23 / 15), (canvasmin / 6))
+            }
         })
         ctx.fillStyle = "black"
-        document.querySelector("#money").innerHTML = "$" + abbv(game.money) + " (" + abbv(Math.pow(5, game.currentmult)) + "x)"
+        document.querySelector("#money").innerHTML = "$" + abbv(game.money) + " (" + abbv(Math.pow(5, game.currentmult)*Math.pow(1.1,game.upgs.money)) + "x)"
         ctx.drawImage(loader.loadedAssets["center" + game.currentmult], (canvas.width - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, (canvas.height - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))), ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))))
         tozoom = Math.max(1, (Math.ceil(game.towers.length / 8) * (Math.min(canvas.width, canvas.height) / 4)) / Math.min(canvas.width, canvas.height) * 3)
         document.querySelector("#towerbuy").innerHTML = "$" + abbv(10 * Math.pow(1.1, game.towersbought))
@@ -410,27 +411,39 @@ function render() {
         document.querySelector("#mmbuy").innerHTML = abbv(1 + game.upgs.money) + " Point" + (game.upgs.money + 1 == 1 ? "" : "s")
         document.querySelector("#rbpbuy").innerHTML = abbv(1 + game.upgs.rebirth) + " Point" + (game.upgs.rebirth + 1 == 1 ? "" : "s")
         document.querySelector("#oltbuy").innerHTML = abbv(1 + game.upgs.offlinetime) + " Point" + (game.upgs.offlinetime + 1 == 1 ? "" : "s")
-        document.querySelector("#fsname").innerHTML = "+1% Firing Speed (" + abbv(Math.pow(1.01, game.upgs.firespeed)) + "x)"
-        document.querySelector("#mmname").innerHTML = "+1% Money (" + abbv(Math.pow(1.01, game.upgs.money)) + "x)"
+        document.querySelector("#fsname").innerHTML = "+10% Firing Speed (" + abbv(Math.pow(1.1, game.upgs.firespeed)) + "x)"
+        document.querySelector("#mmname").innerHTML = "+10% Money (" + abbv(Math.pow(1.1, game.upgs.money)) + "x)"
         document.querySelector("#rbpname").innerHTML = "+1 Rebirth Points (+" + abbv(game.upgs.rebirth) + ")"
         document.querySelector("#oltname").innerHTML = "+10m Offline Time (" + (game.upgs.offlinetime == 0 ? 0 : abbv(game.upgs.offlinetime * 10 + 20)) + "m)"
         if (playbg && currentbg == null) {
             currentbg = Math.floor(Math.random() * 3)
+            loader.loadedAssets["bg" + currentbg].volume = 1
             if (!(currentbg == prevbg)) {
                 loader.loadedAssets["bg" + currentbg].play()
                 loader.loadedAssets["bg" + currentbg].onended = () => {
+                    prevbg = currentbg
                     currentbg = null
                 }
             } else {
                 currentbg = null
             }
         }
+        if (game.settings[0] == "Off" && playbg && !(currentbg == null)) {
+            loader.loadedAssets["bg" + currentbg].volume = 0
+        } else if (game.settings[0] == "On" && playbg && !(currentbg == null)) {
+            loader.loadedAssets["bg" + currentbg].volume = 1
+        }
         document.querySelector("#towerstats").style.display = (inspecting == -1 ? "none" : "block")
         document.querySelector("#towerstats").style.left = (inspecting == -1 ? 0 : getPos(inspecting).x) + "px"
         document.querySelector("#towerstats").style.top = (inspecting == -1 ? 0 : getPos(inspecting).y) + "px"
-        document.querySelector("#statlvl").innerHTML = "lvl: "+(1+game.towers[inspecting == -1 ? 0 : inspecting])
-        document.querySelector("#statdamage").innerHTML = "damage: "+abbv(Math.pow(3,game.towers[inspecting == -1 ? 0 : inspecting]))
-        document.querySelector("#statfs").innerHTML = "speed: "+abbv(Math.pow(1.01,game.upgs.firespeed))+"/s"
+        document.querySelector("#statlvl").innerHTML = "lvl: " + (1 + game.towers[inspecting == -1 ? 0 : inspecting])
+        document.querySelector("#statdamage").innerHTML = "damage: " + abbv(Math.pow(3, game.towers[inspecting == -1 ? 0 : inspecting]))
+        document.querySelector("#statfs").innerHTML = "speed: " + abbv(Math.pow(1.1, game.upgs.firespeed)) + "/s"
+        if (ismobile || game.settings[2] == "True") {
+            document.querySelector("#mergemobile").style.display = "block"
+        } else {
+            document.querySelector("#mergemobile").style.display = "none"
+        }
     }
     game.lastonline = Date.now()
     localStorage.setItem("beta-gdata", JSON.stringify(game))
@@ -468,16 +481,20 @@ document.addEventListener("keydown", (e) => {
         merge()
     }
 })
-let p = prompt("Please enter your access code. Please do not share this code.","")
-if (!(p == "239a")) {
-    alert("Code incorrect, please try again later.")
-    location.href = "../"
+if (location.href == "http://localhost:8001/beta/") {
+    render()
 } else {
-    alert("Access granted.")
-    if (!(ctx)) {
-        alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
+    let p = prompt("Please enter your access code. Please do not share this code.", "")
+    if (!(p == "239a")) {
+        alert("Code incorrect, please try again later.")
+        location.href = "../"
     } else {
-        render()
+        alert("Access granted.")
+        if (!(ctx)) {
+            alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
+        } else {
+            render()
+        }
     }
 }
 /*

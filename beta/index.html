@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,24 +10,23 @@
     <link rel="manifest" href="manifest.json">
     <link rel="shortcut icon" href="images/center0.png" type="image/png">
 </head>
-
 <body>
     <div id="upgscreen" style="display: none;">
         <p id="upgpoints">0 Points</p>
         <button id="upgclose" onclick="document.querySelector('#upgscreen').style.display = 'none'">X</button>
         <span class="upgitem">
             <p class="upgname" id="rebirthname">Rebirth</p>
-            <p class="upgdesc" id="rebirthdesc">Resets all of your progress, but you recieve rebirth points to purchase the items below. These upgrades can immensely boost the speed at which you progress in the game. Rebirth Points and anything purchased with Rebirth Points will not reset after Rebirth. <br><br><i>Upgrades and Rebirthing are currently in development, so bugs and glitches may occur. Before rebirthing, we suggest to download your save file in the case that a glitch may occur in Rebirthing.</i></p>
+            <p class="upgdesc" id="rebirthdesc">Resets all of your progress, but you recieve rebirth points to purchase the items below. These upgrades can immensely boost the speed at which you progress in the game. Rebirth Points and anything purchased with Rebirth Points will not reset after Rebirth.</p>
             <button class="upgbuy" id="rebirthbuy">$500M</button>
         </span>
         <span class="upgitem">
-            <p class="upgname" id="fsname">+1% Firing Speed</p>
-            <p class="upgdesc" id="fsdesc">Increases the speed at which your towers fire by +1% <i>compounding</i>.</p>
+            <p class="upgname" id="fsname">+3% Firing Speed</p>
+            <p class="upgdesc" id="fsdesc">Increases the speed at which your towers fire by +10% <i>compounding</i>.</p>
             <button class="upgbuy" id="fsbuy">1 Point</button>
         </span>
         <span class="upgitem">
-            <p class="upgname" id="mmname">+1% Money</p>
-            <p class="upgdesc" id="mmdesc">Increases the amount of money you make by +1% <i>compounding</i>.</p>
+            <p class="upgname" id="mmname">+3% Money</p>
+            <p class="upgdesc" id="mmdesc">Increases the amount of money you make by +10% <i>compounding</i>.</p>
             <button class="upgbuy" id="mmbuy">1 Point</button>
         </span>
         <span class="upgitem">
@@ -66,8 +64,7 @@
     </div>
     <button id="mergemobile">Merge</button>
     <button id="upgrades">Upgrades</button>
-    <canvas id="game">Your browser does not support the HTML5 Canvas element. Please upgrade your browser to
-        continue.</canvas>
+    <canvas id="game">Your browser does not support the HTML5 Canvas element. Please upgrade your browser to continue.</canvas>
     <div id="rebirthed" style="opacity: 0; display: none;">
         <p id="rebirthtext"></p>
     </div>
@@ -84,7 +81,7 @@
         <button id="statsell">Destroy</button>
     </div>
     <button id="settings">Settings</button>
-    <ul id="settingsscreen" style="display: block;">
+    <ul id="settingsscreen" style="display: none;">
         <button id="settingsclose" onclick="document.querySelector('#settingsscreen').style.display = 'none'">X</button>
         <li class="settingsitem">
             Music: 
@@ -96,7 +93,7 @@
         </li>
         <li class="settingsitem">
             Always show Merge Button: 
-            <button class="settingsselect" data-options="True,False" data-value="0"></button>
+            <button class="settingsselect" data-options="True,False" data-value="1"></button>
         </li>
         <li class="settingsitem">
             Graphics Mode: 
@@ -105,15 +102,18 @@
         <li class="settingsitem">
             Credits:
             <ul id="credits">
-                <li class="credit">Caden Moore - Programming & Art</li>
+                <li class="credit">Caden Moore - Programming, Art, & SFX</li>
                 <li class="credit">Logan Rose - Music</li>
+                <li class="credit">Hunter Jorgenson - SFX</li>
                 <li class="credit">Brandon Smith - Beta Playtesting</li>
-                <li class="credit">John Ruhlman VI - Beta Playtesting</li>
-                <li class="credit">Carter Enlow - Beta Playtesting</li>
+                <li class="credit">John Ruhlman IV - Beta Playtesting</li>
+                <li class="credit">Carter Enloe - Beta Playtesting</li>
             </ul>
         </li>
     </ul>
+    <noscript>
+        <div style="z-index: 999; background-color: black; color: white; position: absolute; width: 100%; height: 100%; text-align: center; font-size: 4vmin; font-family: monospace;">Please Enable JavaScript to continue.</div>
+    </noscript>
     <script src="game.js"></script>
-</body>
-
+</body> 
 </html>

@@ -1,0 +1,16 @@
+{
+    "description":"The predecessor of Tower Merge on Scratch.",
+    "name":"Tower Merge 2",
+    "short_name":"TM2",
+    "icons": [
+        {
+            "src":"images/center0.png",
+            "type":"image/png"
+        }
+    ],
+    "orientation":"landscape",
+    "theme_color":"rgb(15,15,15)",
+    "display":"fullscreen",
+    "start_url":"https://towermerge2.vercel.app",
+    "scope":"https://towermerge2.vercel.app"
+}

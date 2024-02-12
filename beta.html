@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, max-scale=1.0, user-scalable=no">
+    <title>Tower Merge</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="images/center0.png" type="image/png">
+</head>
+<body>
+    <div id="upgscreen" style="display: none;">
+        <p id="upgpoints">0 Points</p>
+        <button id="upgclose" onclick="document.querySelector('#upgscreen').style.display = 'none'">X</button>
+        <span class="upgitem">
+            <p class="upgname" id="rebirthname">Rebirth</p>
+            <p class="upgdesc" id="rebirthdesc">Resets all of your progress, but you recieve rebirth points to purchase the items below. These upgrades can immensely boost the speed at which you progress in the game. Rebirth Points and anything purchased with Rebirth Points will not reset after Rebirth. <br><br><i>Upgrades and Rebirthing are currently in development, so bugs and glitches may occur. Before rebirthing, we suggest to download your save file in the case that a glitch may occur in Rebirthing.</i></p>
+            <button class="upgbuy" id="rebirthbuy">$500M</button>
+        </span>
+        <span class="upgitem">
+            <p class="upgname" id="fsname">+1% Firing Speed</p>
+            <p class="upgdesc" id="fsdesc">Increases the speed at which your towers fire by +1% <i>compounding</i>.</p>
+            <button class="upgbuy" id="fsbuy">1 Point</button>
+        </span>
+        <span class="upgitem">
+            <p class="upgname" id="mmname">+1% Money</p>
+            <p class="upgdesc" id="mmdesc">Increases the amount of money you make by +1% <i>compounding</i>.</p>
+            <button class="upgbuy" id="mmbuy">1 Point</button>
+        </span>
+        <span class="upgitem">
+            <p class="upgname" id="rbpname">+1 Rebirth Points</p>
+            <p class="upgdesc" id="rbpdesc">Increases the amount of Rebirth Points you recieve after Rebirthing by 1. Starting Rebirth Points per Rebirth is 1.</p>
+            <button class="upgbuy" id="rbpbuy">1 Point</button>
+        </span>
+        <span class="upgitem">
+            <p class="upgname" id="oltname">+10m Offline Time</p>
+            <p class="upgdesc" id="oltdesc">Increases the amount of time that the game can run while offline by +10m. Starting time is 30m. <i>While offline you make 50% usual income.</i></p>
+            <button class="upgbuy" id="oltbuy">1 Point</button>
+        </span>
+    </div>
+    <div id="loading">
+        <p id="loadingtext">Loading...</p>
+    </div>
+    <p id="fps"></p>
+    <p id="money"></p>
+    <p id="max"></p>
+    <div id="towerbox">
+        <p id="towertext" class="shoptext">Buy L1 Tower</p>
+        <button id="towerbuy" class="shopbuy"></button>
+    </div>
+    <div id="baseupg">
+        <p id="basetext" class="shoptext">+1 Base Level</p>
+        <button id="basebuy" class="shopbuy"></button>
+    </div>
+    <div id="centerupg">
+        <p id="centertext" class="shoptext">+5x Money Boost</p>
+        <button id="centerbuy" class="shopbuy"></button>
+    </div>
+    <div id="maxupg">
+        <p id="maxtext" class="shoptext">+8 Tower Capacity</p>
+        <button id="maxbuy" class="shopbuy"></button>
+    </div>
+    <button id="mergemobile">Merge</button>
+    <button id="upgrades">Upgrades</button>
+    <canvas id="game">Your browser does not support the HTML5 Canvas element. Please upgrade your browser to continue.</canvas>
+    <div id="rebirthed" style="opacity: 0; display: none;">
+        <p id="rebirthtext"></p>
+    </div>
+    <div id="offline">
+        <p id="offlinetitle">You were gone for 30m!</p>
+        <p id="offlinemoney">In that time you made $500M.</p>
+        <button id="offlineexit" onclick="document.querySelector('#offline').style.display = 'none'">Continue</button>
+    </div>
+    <div id="towerstats">
+        <span id="statcorner"></span>
+        <p id="statlvl">lvl: 16</p>
+        <p id="statdamage">damage: 625000</p>
+        <p id="statfs">speed: 2.15/s</p>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

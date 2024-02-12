@@ -376,3 +376,6 @@ html, body, head {
     border-radius: 1vmin;
     color: black;
 }
+#credits {
+    list-style: square;
+}

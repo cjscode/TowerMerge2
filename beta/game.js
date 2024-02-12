@@ -468,12 +468,12 @@ document.addEventListener("keydown", (e) => {
         merge()
     }
 })
-let p = "239a"//prompt("Please enter your access code. Please do not share this code.","")
+let p = prompt("Please enter your access code. Please do not share this code.","")
 if (!(p == "239a")) {
     alert("Code incorrect, please try again later.")
     location.href = "../"
 } else {
-    //alert("Access granted.")
+    alert("Access granted.")
     if (!(ctx)) {
         alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
     } else {

@@ -26,6 +26,9 @@ document.addEventListener("click", (e) => {
         return
     }
     playbg = true
+    if (game.settings[3] == "No Render") {
+        return
+    }
     inspecting = -1
     game.towers.forEach((v, i) => {
         const pos = getPos(i)
@@ -352,7 +355,7 @@ function render() {
         ctx.fillStyle = "rgb(255,255,255)"
         ctx.fillRect(0, 0, canvas.width, canvas.height)
         function drawImgRotation(img, x, y, sx, sy) {
-            if (!(img)) {
+            if (!(img) || game.settings[3] == "No Render") {
                 return
             }
             ctx.save()
@@ -389,7 +392,9 @@ function render() {
         })
         ctx.fillStyle = "black"
         document.querySelector("#money").innerHTML = "$" + abbv(game.money) + " (" + abbv(Math.pow(5, game.currentmult)*Math.pow(1.1,game.upgs.money)) + "x)"
-        ctx.drawImage(loader.loadedAssets["center" + game.currentmult], (canvas.width - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, (canvas.height - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))), ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))))
+        if (!(game.settings[3] == "No Render")) {
+            ctx.drawImage(loader.loadedAssets["center" + game.currentmult], (canvas.width - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, (canvas.height - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))), ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))))
+        }
         tozoom = Math.max(1, (Math.ceil(game.towers.length / 8) * (Math.min(canvas.width, canvas.height) / 4)) / Math.min(canvas.width, canvas.height) * 3)
         document.querySelector("#towerbuy").innerHTML = "$" + abbv(10 * Math.pow(1.1, game.towersbought))
         document.querySelector("#towertext").innerHTML = "Buy L" + (game.baselevel + 1) + " Tower"

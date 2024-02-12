@@ -161,7 +161,7 @@ html, body, head {
     position: absolute;
     left: 1vmin;
     top: 1vmin;
-    z-index: 5;
+    z-index: 6;
     border-radius: 3vmin;
     overflow: scroll;
 }
@@ -285,7 +285,7 @@ html, body, head {
 }
 #towerstats {
     background-color: rgb(235,235,235);
-    z-index: 11;
+    z-index: 5;
     position: absolute;
     width: 40vmin;
     height: 20vmin;
@@ -350,12 +350,12 @@ html, body, head {
 }
 #settingsscreen {
     width: calc(100% - 2vmin);
-    height: calc(100% - 2vmin);
+    height: calc(100% - 8vmin);
     background-color: rgb(220,220,220);
     position: absolute;
     left: 1vmin;
     top: 1vmin;
-    z-index: 5;
+    z-index: 6;
     border-radius: 3vmin;
     overflow: scroll;
     list-style: none;
@@ -368,7 +368,7 @@ html, body, head {
     font-size: 4vmin;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.settingsselect {
+.settingsselect, #restart, #savegame, #opengame {
     background-color: rgb(235,235,235);
     border: 0;
     font-size: 4vmin;

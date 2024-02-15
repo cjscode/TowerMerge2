@@ -391,7 +391,7 @@ function render() {
             }
         })
         ctx.fillStyle = "black"
-        document.querySelector("#money").innerHTML = "$" + abbv(game.money) + " (" + abbv(Math.pow(5, game.currentmult)*Math.pow(1.1,game.upgs.money)) + "x)"
+        document.querySelector("#money").innerHTML = "$" + abbv(game.money) + " (" + abbv(Math.pow(5, game.currentmult) * Math.pow(1.1, game.upgs.money)) + "x)"
         if (!(game.settings[3] == "No Render")) {
             ctx.drawImage(loader.loadedAssets["center" + game.currentmult], (canvas.width - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, (canvas.height - (canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))) / 2, ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))), ((canvasmin / 8 + Math.sin(Date.now() / 500) * (canvasmin / 30))))
         }
@@ -449,6 +449,11 @@ function render() {
         } else {
             document.querySelector("#mergemobile").style.display = "none"
         }
+        if ((inspecting == -1 ? 0 : getPos(inspecting).x) > canvas.width/2) {
+            document.querySelector("#towerstats").className = "left"
+        } else {
+            document.querySelector("#towerstats").className = ""
+        }
     }
     game.lastonline = Date.now()
     localStorage.setItem("beta-gdata", JSON.stringify(game))
@@ -484,6 +489,82 @@ document.addEventListener("keydown", (e) => {
     }
     if (e.key == " ") {
         merge()
+    }
+})
+function reverse(s) {
+    return s.split("").reverse().join("")
+}
+document.querySelector("#savegame").addEventListener("click", (e) => {
+    if (!(e.isTrusted)) {
+        return
+    }
+    let c = document.createElement("a")
+    let f = new File([reverse(btoa(reverse(btoa(JSON.stringify(game)))))], "save.txt", { type: "text/plain" })
+    let u = URL.createObjectURL(f)
+    c.href = u
+    c.download = f.name
+    c.click()
+    URL.revokeObjectURL(u)
+    c.remove()
+})
+document.querySelector("#opengame").addEventListener("click", (e) => {
+    if (!(e.isTrusted)) {
+        return
+    }
+    document.querySelector("#upload").click()
+})
+document.querySelector("#upload").onchange = function (e) {
+    let fr = new FileReader()
+    fr.readAsText(this.files[0])
+    fr.onload = function (e) {
+        let g = JSON.parse(atob(reverse(atob(reverse(e.target.result)))))
+        if (!(g)) {
+            alert("Your save file is corrupted.")
+            return
+        }
+        let c = confirm("Are you sure you want to use this save file? Your current save will be lost.")
+        if (!(c)) {
+            return
+        }
+        for (let id in resetto) {
+            if (!(g[id])) {
+                g[id] = resetto[id]
+            }
+        }
+        game = { ...g }
+        alert("Save file has been loaded successfully.")
+    }
+}
+document.querySelector("#restart").addEventListener("click", (e) => {
+    if (!(e.isTrusted)) {
+        return
+    }
+    let c = prompt("Are you sure you want to reset your game? Everything will be reset, this can not be undone. Type 'I WANT TO RESET' to reset.")
+    if (c == "I WANT TO RESET") {
+        game = {
+            money: 0,
+            towers: [0],
+            towersbought: 0,
+            baselevel: 0,
+            currentmult: 0,
+            towermax: 0,
+            rebirths: 0,
+            upgs: {
+                firespeed: 0,
+                money: 0,
+                rebirth: 0,
+                offlinetime: 0
+            },
+            stats: {
+                timesrebirthed: 0
+            },
+            lastonline: Date.now(),
+            //0: music, 1: soundfx, 2: mergebutton, 3: graphics
+            settings: ["On", "On", "False", "Default"]
+        }
+        alert("Your game has been reset.")
+    } else {
+        alert("Game reset has been cancelled.")
     }
 })
 if (location.href == "http://localhost:8001/beta/") {

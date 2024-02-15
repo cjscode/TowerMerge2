@@ -292,6 +292,11 @@ html, body, head {
     border-radius: 0 1.75vmin 1.75vmin 1.75vmin;
     overflow: scroll;
 }
+#towerstats.left {
+    translate: -40vmin 0;
+    border-radius: 1.75vmin 0 1.75vmin 1.75vmin;
+    text-align: right;
+}
 #statcorner {
     width: 2vmin;
     height: 2vmin;
@@ -307,6 +312,12 @@ html, body, head {
     animation-fill-mode: both;
     animation-iteration-count: infinite;
     animation-direction: alternate-reverse;
+}
+.left > #statcorner {
+    right: 0;
+    border-left: none;
+    border-right: 0.25vmin black solid;
+    translate: 0.125vmin -0.125vmin;
 }
 #statlvl, #statdamage, #statfs {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

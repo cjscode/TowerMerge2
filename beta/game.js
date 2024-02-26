@@ -579,7 +579,7 @@ if (location.href == "http://localhost:8001/beta/") {
         if (!(ctx)) {
             alert("Your browser does not support Canvas rendering. Please upgrade your browser or check the console for errors.")
         } else {
-            alert("PLEASE READ: Please download your save file as soon as possible! When v1 is released, your localStorage file will be lost.")
+            alert("PLEASE READ: Please download your save file as soon as possible! When v1 is released, your localStorage file will be lost!")
             render()
         }
     }

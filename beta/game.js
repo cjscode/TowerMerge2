@@ -589,4 +589,5 @@ if (location.href == "http://localhost:8001/beta/") {
 // Tower stats
 // Different Graphics modes (normal, no bullets, numbers and shop only)
 // New tower discovered screen
+// idk
 */

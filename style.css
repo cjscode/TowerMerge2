@@ -2,50 +2,491 @@ html, body, head {
     padding: 0;
     margin: 0;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 * {
+    touch-action: manipulation;
+    -ms-touch-action: manipulation;
+}
+#game,#money,#fps,#loading,#loadingtext {
+    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+}
+#game {
+    padding: 0;
+    margin: 0;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#money {
+    position: absolute;
+    z-index: 2;
+    color: rgb(15,15,15);
+    font-size: 5vmin;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: rgb(240,240,240);
 }
-body {
-    background-color: rgb(10,10,10);
-}
-#title {
+#loading {
     position: absolute;
     width: 100%;
+    height: 100%;
+    background-color: rgb(75,150,255);
+    z-index: 100;
+    transition: 1s all ease-in-out;
+}
+#loadingtext {
+    position: absolute;
     top: 50%;
+    width: 100%;
     translate: 0 -50%;
-    font-size: 5vmin;
     text-align: center;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
+    font-size: 5vmin;
+    font-weight: bold;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#fps {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2vmin;
+    padding: 0;
+    margin: 0;
+    z-index: 99;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#mergemobile {
+    height: 8vmin;
+    font-size: 3vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    right: 1vmin;
+    bottom: 1vmin;
+    padding: 1vmin;
+    margin: 0;
+    background-color: rgb(235,235,235);
+    color: rgb(20,20,20);
+    border-radius: 1vmin;
+    z-index: 3;
+}
+#towerbox {
+    width: 23vmin;
+    border-radius: 1vmin;
+    position: absolute;
+    left: 1vmin;
+    bottom: 1vmin;
+    background-color: rgb(235,235,235);
+    z-index: 3;
+}
+.shoptext {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2vmin;
+    text-align: center;
+    padding: 1vmin;
+    margin: 0;
+}
+.shopbuy {
+    color: black;
+    margin: 1vmin;
+    border: 0;
+    border-radius: 1vmin;
+    width: calc(100% - 2vmin);
+    font-size: 2.5vmin;
+    background-color: rgb(220,220,220);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#baseupg {
+    width: 23vmin;
+    border-radius: 1vmin;
+    position: absolute;
+    left: 25vmin;
+    bottom: 1vmin;
+    background-color: rgb(235,235,235);
+    z-index: 3;
+}
+#centerupg {
+    width: 24vmin;
+    border-radius: 1vmin;
+    position: absolute;
+    left: 49vmin;
+    bottom: 1vmin;
+    background-color: rgb(235,235,235);
+    z-index: 3;
+}
+#maxupg {
+    width: 25vmin;
+    border-radius: 1vmin;
+    position: absolute;
+    left: 74vmin;
+    bottom: 1vmin;
+    background-color: rgb(235,235,235);
+    z-index: 3;
+}
+#max {
+    position: absolute;
+    z-index: 2;
+    color: rgb(15,15,15);
+    font-size: 3vmin;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    top: 6vmin;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#upgrades {
+    height: 8vmin;
+    font-size: 3vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    left: 1vmin;
+    bottom: 1vmin;
+    padding: 1vmin;
+    margin: 0;
+    background-color: rgb(235,235,235);
+    color: rgb(20,20,20);
+    border-radius: 1vmin;
+    z-index: 3;
+}
+#upgscreen {
+    width: calc(100% - 2vmin);
+    height: calc(100% - 2vmin);
+    background-color: rgb(220,220,220);
+    position: absolute;
+    left: 1vmin;
+    top: 1vmin;
+    z-index: 6;
+    border-radius: 3vmin;
+    overflow: scroll;
+}
+#upgclose, #settingsclose, #achclose {
+    font-size: 5vmin;
+    position: absolute;
+    width: 5vmin;
+    height: 5vmin;
+    top: 1vmin;
+    left: 1vmin;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    color: black;
+    z-index: 7;
+    background-color: transparent;
+}
+.upgitem, .achitem {
+    background-color: rgb(200,200,200);
+    position: absolute;
+    width: calc(100% - 4vmin);
+    left: 1vmin;
+    border-radius: 1.5vmin;
+    padding: 1vmin;
+    z-index: 6;
+}
+.upgname, .upgdesc, .upgbuy, .achtitle, .achdesc, .achstat {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 1vmin;
+}
+.upgname, .achtitle {
+    font-size: 4vmin;
     font-weight: bold;
 }
-#countdown {
+.upgdesc, .achdesc, .achstat {
+    font-size: 2vmin;
+}
+.upgbuy {
+    background-color: rgb(235,235,235);
+    color: black;
+    font-size: 2.5vmin;
+    border: 0;
+    border-radius: 1vmin;
+}
+#upgpoints {
+    position: absolute;
+    z-index: 7;
+    right: 1vmin;
+    top: 1vmin;
+    font-size: 4vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding:0;
+    margin: 0;
+    width: calc(100% - 7vmin);
+    text-align: center;
+}
+#rebirthed {
+    background-color: black;
     position: absolute;
     width: 100%;
-    top: 50%;
-    font-size: 5vmin;
-    text-align: center;
-    translate: 0 50%;
-    -ms-user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    animation-name: glow;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-    animation-direction: alternate;
-    animation-timing-function: ease-in-out;
+    height: 100%;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    transition: all 1s ease-in-out;
 }
-@keyframes glow {
-    to {
-        text-shadow: 0 0 1vmin rgb(240,240,240);
+#rebirthtext {
+    color: white;
+    text-align: center;
+    top: 50%;
+    position: absolute;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 5vmin;
+    translate: 0 -50%;
+    font-weight: bold;
+}
+#offline {
+    width: 96vmin;
+    height: 63vmin;
+    background-color: rgb(220,220,220);
+    position: absolute;
+    border-radius: 2vmin;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    z-index: 10;
+}
+#offlinetitle {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    translate: 0 -200%;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 6vmin;
+    font-weight: bold;
+}
+#offlinemoney {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    color: black;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-size: 4vmin;
+}
+#offlineexit {
+    position: absolute;
+    bottom: 1vmin;
+    left: 50%;
+    translate: -50% 0;
+    background-color: rgb(235,235,235);
+    color: black;
+    font-size: 3vmin;
+    padding: 1vmin;
+    border: 0;
+    border-radius: 2vmin;
+}
+#towerstats {
+    background-color: rgb(235,235,235);
+    z-index: 5;
+    position: absolute;
+    width: 40vmin;
+    height: 20vmin;
+    border-radius: 0 1.75vmin 1.75vmin 1.75vmin;
+    overflow: scroll;
+}
+#towerstats.left {
+    translate: -40vmin 0;
+    border-radius: 1.75vmin 0 1.75vmin 1.75vmin;
+    text-align: right;
+}
+#statcorner {
+    width: 2vmin;
+    height: 2vmin;
+    background-color: transparent;
+    position: absolute;
+    border-top: 0.25vmin black solid;
+    border-left: 0.25vmin black solid;
+    translate: -0.125vmin -0.125vmin;
+    border-radius: 0.25vmin;
+    animation-name: corner;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+}
+.left > #statcorner {
+    right: 0;
+    border-left: none;
+    border-right: 0.25vmin black solid;
+    translate: 0.125vmin -0.125vmin;
+}
+#statlvl, #statdamage, #statfs {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 1vmin;
+    font-size: 1.75vmin;
+}
+@keyframes corner {
+    100% {
+        width: 3vmin;
+        height: 3vmin;
     }
-    from {
-        text-shadow: 0 0 0.25vmin rgb(240,240,240);
+    0% {
+        width: 2vmin;
+        height: 2vmin;
     }
+}
+#statsell {
+    background-color: rgb(220,220,220);
+    border: 0;
+    padding: 0.25vmin;
+    font-size: 1.5vmin;
+    margin-left: 1vmin;
+    border-radius: 0.5vmin;
+    color: red;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#settings {
+    height: 8vmin;
+    font-size: 3vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    top: 1vmin;
+    left: 1vmin;
+    padding: 1vmin;
+    margin: 0;
+    background-color: rgb(235,235,235);
+    color: rgb(20,20,20);
+    border-radius: 1vmin;
+    z-index: 3;
+}
+#settingsscreen, #ach {
+    width: calc(100% - 2vmin);
+    height: calc(100% - 8vmin);
+    background-color: rgb(220,220,220);
+    position: absolute;
+    left: 1vmin;
+    top: 1vmin;
+    z-index: 6;
+    border-radius: 3vmin;
+    overflow: scroll;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-top: 6vmin;
+}
+.settingsitem {
+    padding: 0.5vmin;
+    font-size: 4vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.settingsselect, #restart, #savegame, #opengame, #showach {
+    background-color: rgb(235,235,235);
+    border: 0;
+    font-size: 4vmin;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-radius: 1vmin;
+    color: black;
+}
+#credits {
+    list-style: square;
+}
+#achievement {
+    position: absolute;
+    z-index: 15;
+    width: 38vmin;
+    background-color: rgb(235,235,235);
+    border-radius: 2vmin 0 0 2vmin;
+    right: 0;
+    top: 1vmin;
+    padding: 1vmin;
+    animation: achieve 10s ease-in-out 1 forwards;
+    translate: 40vmin 0px;
+}
+#atitle {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 3vmin;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+#adesc {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 2vmin;
+    padding: 0;
+    margin: 0;
+}
+.rarity-common {
+    color: black;
+}
+.rarity-uncommon {
+    color: #52AA5E;
+}
+.rarity-epic {
+    color: #4C243B;
+}
+.rarity-super {
+    color: #BF4342;
+}
+.rarity-ledgendary {
+    color: #E28413;
+}
+.rarity-impossible {
+    color: #54457F;
+}
+.rarity-hidden {
+    background-image: repeating-linear-gradient(90deg, violet, indigo, blue, green, yellow, orange, red);
+    background-size: 750% 750%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: hiddenanim 5s ease-in-out infinite;
+}
+@keyframes hiddenanim {
+    0% {
+        background-position: 0% 0%;
+    }
+    25% {
+        background-position: 0% 100%;
+    }
+    50% {
+        background-position: 100% 0%;
+    }
+    75% {
+        background-position: 100% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+}
+@keyframes achieve {
+    0% {
+        translate: 40vmin 0px;
+    }
+    10% {
+        translate: 0vmin 0px;
+    }
+    90% {
+        translate: 0vmin 0px;
+    }
+    100% {
+        translate: 40vmin 0px;
+    }
+}
+#ach {
+    list-style-type: none;
+}
+.achtitle,.achdesc,.achstat {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.achyes {
+    opacity: 1;
+}
+.achno {
+    opacity: 0.5;
+}
+#achholder {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
